@@ -1,0 +1,23 @@
+FROM node:8 as builder
+
+WORKDIR /home/node/todo-gql
+
+# copy all files not listed in .dockerignore
+COPY . .
+
+# before switching to non-root user, change ownership of home
+RUN chown -R node:node .
+USER node
+
+RUN npm install
+RUN npm run build.prod
+
+FROM node:8
+
+WORKDIR /opt/todo-gql
+
+COPY --from=builder /home/node/todo-gql/dist/prod /opt/todo-gql
+COPY --from=builder /home/node/todo-gql/package.json /opt/todo-gql
+COPY --from=builder /home/node/todo-gql/package-lock.json /opt/todo-gql
+
+RUN npm install --production

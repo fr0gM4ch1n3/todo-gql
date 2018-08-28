@@ -1,0 +1,23 @@
+type Todo {
+  id: String
+  title: String
+  completed: Boolean
+}
+
+# This type specifies the entry points into our API
+type Query {
+  todo(id: String!): Todo
+  todos(ids: [String!]): [Todo]
+}
+# The mutation root type, used to define all mutations
+type Mutation {
+  addTodo(title: String, completed: Boolean): Todo
+  updateTodo(id: String!, title: String, completed: Boolean): Todo
+  deleteTodo(id: String!): Todo
+}
+# The subscription root type, specifying what we can subscribe to
+type Subscription {
+    todoAdded: Todo
+    todoUpdated: Todo
+    todoDeleted: Todo
+}

@@ -1,0 +1,50 @@
+{
+  "initialize": [
+    "noop"
+  ],
+
+  "build.dev": [
+    "initialize",
+    "clean.once",
+    "build.assets",
+    "build.js.dev"
+  ],
+
+  "build.dev.watch": [
+    "build.dev",
+    "watch.dev"
+  ],
+
+  "build.prod": [
+    "initialize",
+    "check.tools",
+    "clean.prod",
+    "tslint",
+    "build.assets",
+    "copy.prod",
+    "build.js.prod"
+  ],
+
+  "build.test": [
+    "initialize",
+    "clean.once",
+    "build.assets",
+    "build.dev",
+    "build.js.test"
+  ],
+
+  "run.dev": [
+    "build.dev",
+    "nodemon",
+    "watch.dev"
+  ],
+
+  "run.prod": [
+    "build.prod",
+    "server.prod"
+  ],
+
+  "test": [
+    "build.test"
+  ]
+}
